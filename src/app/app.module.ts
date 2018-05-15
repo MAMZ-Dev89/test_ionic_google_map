@@ -88,9 +88,10 @@ export class MyErrorHandler implements ErrorHandler {
     Camera,
     SplashScreen,
     StatusBar,
+    IonicErrorHandler,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: MyErrorHandler }
   ]
 })
 export class AppModule { }
