@@ -86,11 +86,14 @@
         <variable name="CHANNEL_NAME" value="Master" />
         <variable name="UPDATE_METHOD" value="auto" />
     </plugin>
-    <engine name="android" spec="~7.0.0" />
     <plugin name="cordova-plugin-googlemaps" spec="^2.3.1">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyDHsVYeS0BHsHTfmjfLR_j4TbUjud4lwI4" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyDHsVYeS0BHsHTfmjfLR_j4TbUjud4lwI4" />
         <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="26.1.0" />
     </plugin>
+    <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
+        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To help us know your location" />
+    </plugin>
+    <engine name="android" spec="~7.0.0" />
 </widget>

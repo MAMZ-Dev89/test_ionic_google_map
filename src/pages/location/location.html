@@ -4,11 +4,11 @@
   </ion-toolbar>
 </ion-header>
 <ion-content scroll="false" padding>
-  <!-- <ion-label>Tell us what is your location ?</ion-label>
-  <button ion-button block (click)="currentLocation()" class="login">Use current location</button>
-  <button ion-button block (click)="customLocation()" class="signup">Use specific location</button> -->
-
-  <div id="map_canvas" [hidden]="!showMap">
-     
+  <div *ngIf="!showMap">
+    <ion-label>Tell us what is your location ?</ion-label>
+    <button ion-button block (click)="currentLocation()" class="login">Use current location</button>
+    <button ion-button block (click)="customLocation()" class="signup">Use specific location</button>
+  </div>
+  <div #map id="map" *ngIf="!showMap" >
   </div>
 </ion-content>
