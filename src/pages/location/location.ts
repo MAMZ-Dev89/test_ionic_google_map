@@ -51,7 +51,7 @@ export class LocationPage {
     // Get the location of you
     this.map.getMyLocation()
       .then((location: MyLocation) => {
-        Pro.monitoring.log(JSON.stringify(location, null, 2),{ level: 'info' });
+        Pro.monitoring.log(JSON.stringify(location, null, 2),{ level: 'error' });
 
         // Move the map camera to the location with animation
         return this.map.animateCamera({
