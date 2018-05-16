@@ -1,5 +1,6 @@
+import { Pro } from '@ionic/pro';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import {
   GoogleMaps,
@@ -8,10 +9,12 @@ import {
   GoogleMapOptions,
   CameraPosition,
   MarkerOptions,
-  Marker
+  Marker,
+  GoogleMapsAnimation,
+  MyLocation
 } from '@ionic-native/google-maps';
 
-declare var google;
+
 
 @IonicPage()
 @Component({
@@ -20,32 +23,59 @@ declare var google;
 })
 export class LocationPage {
 
+  mapReady: boolean = false;
   map: GoogleMap;
   showMap: boolean = false;
   longtitude: number;
   latitude: number;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
 
   }
 
   ionViewDidLoad() {
-
+    console.log('ionViewDidLoad LocationPage');
+    this.loadMap();
   }
 
   currentLocation() {
     this.showMap = true;
-    console.log('ionViewDidLoad LocationPage');
-    this.geolocation.getCurrentPosition().then((resp) => {
-      console.log(" Your location is ===== " + resp.coords.latitude + "," + resp.coords.longitude);
-      this.longtitude = resp.coords.longitude;
-      this.latitude = resp.coords.latitude;
-      this.loadMap();
-    }).catch((error) => {
-      console.log('Error getting location');
-      console.dir(error);
-    });
+
+    if (!this.mapReady) {
+      this.showToast('map is not ready yet. Please try again.');
+      return;
+    }
+    this.map.clear();
+
+    // Get the location of you
+    this.map.getMyLocation()
+      .then((location: MyLocation) => {
+        Pro.monitoring.log(JSON.stringify(location, null, 2),{ level: 'info' });
+
+        // Move the map camera to the location with animation
+        return this.map.animateCamera({
+          target: location.latLng,
+          zoom: 17,
+          tilt: 30
+        }).then(() => {
+          // add a marker
+          return this.map.addMarker({
+            title: '@ionic-native/google-maps plugin!',
+            snippet: 'This plugin is awesome!',
+            position: location.latLng,
+            animation: GoogleMapsAnimation.BOUNCE
+          });
+        })
+      }).then((marker: Marker) => {
+        // show the infoWindow
+        marker.showInfoWindow();
+
+        // If clicked it, display the alert
+        marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+          this.showToast('clicked!');
+        });
+      });
   }
 
   customLocation() {
@@ -54,42 +84,32 @@ export class LocationPage {
 
   loadMap() {
 
-    let mapOptions: GoogleMapOptions = {
+    this.map = GoogleMaps.create('map', {
       camera: {
         target: {
-          lat: this.longtitude,
-          lng: this.latitude
+          lat: 43.0741704,
+          lng: -89.3809802
         },
         zoom: 18,
         tilt: 30
       }
-    };
+    });
 
-    this.map = GoogleMaps.create('map', mapOptions);
-
-    // Wait the MAP_READY before using any methods.
-    this.map.one(GoogleMapsEvent.MAP_READY)
-      .then(() => {
-        console.log('Map is ready!');
-
-        // Now you can use all methods safely.
-        this.map.addMarker({
-          title: 'Your Location',
-          icon: 'red',
-          animation: 'DROP',
-          position: {
-            lat: this.longtitude,
-            lng: this.latitude
-          }
-        })
-          .then(marker => {
-            marker.on(GoogleMapsEvent.MAP_CLICK)
-              .subscribe(() => {
-                alert('clicked');
-              });
-          });
-
-      });
+    // Wait the maps plugin is ready until the MAP_READY event
+    this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+      this.mapReady = true;
+    });
   }
+
+  showToast(message: string) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 2000,
+      position: 'middle'
+    });
+
+    toast.present(toast);
+  }
+
 
 }
