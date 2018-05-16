@@ -22,6 +22,8 @@ export class LocationPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.loadMap();
+    this.showMap = true;
   }
 
   ionViewDidLoad() {
@@ -29,8 +31,7 @@ export class LocationPage {
   }
 
   currentLocation() {
-    this.loadMap();
-    this.showMap = true;
+
   }
 
   customLocation() {
