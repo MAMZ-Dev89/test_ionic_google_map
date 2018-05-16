@@ -1,3 +1,4 @@
+import { LocationPage } from './../pages/location/location';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule, Injectable, Injector } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -62,7 +63,8 @@ export class MyErrorHandler implements ErrorHandler {
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    LocationPage
   ],
   imports: [
     BrowserModule,
@@ -79,7 +81,8 @@ export class MyErrorHandler implements ErrorHandler {
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
+    LocationPage
   ],
   providers: [
     Api,
