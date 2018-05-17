@@ -13,7 +13,8 @@ import { Pro } from '@ionic/pro';
 import { Items } from '../mocks/providers/items';
 import { Settings, User, Api } from '../providers';
 import { MyApp } from './app.component';
-import { GoogleMaps } from '@ionic-native/google-maps';
+import { Geolocation } from '@ionic-native/geolocation';
+
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -93,7 +94,7 @@ export class MyErrorHandler implements ErrorHandler {
     SplashScreen,
     StatusBar,
     IonicErrorHandler,
-    GoogleMaps,
+    Geolocation,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: MyErrorHandler }
