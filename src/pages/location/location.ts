@@ -1,7 +1,5 @@
-import { Pro } from '@ionic/pro';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import { Geolocation } from '@ionic-native/geolocation';
 import {
   GoogleMaps,
   GoogleMap,
@@ -14,7 +12,7 @@ import {
   MyLocation
 } from '@ionic-native/google-maps';
 
-
+//declare var google; 
 
 @IonicPage()
 @Component({
@@ -49,9 +47,8 @@ export class LocationPage {
     this.map.clear();
 
     // Get the location of you
-    this.map.getMyLocation()
-      .then((location: MyLocation) => {
-        Pro.monitoring.log(JSON.stringify(location, null, 2),{ level: 'error' });
+    this.map.getMyLocation().then((location: MyLocation) => {
+        console.log(JSON.stringify(location, null, 2));
 
         // Move the map camera to the location with animation
         return this.map.animateCamera({
@@ -84,7 +81,7 @@ export class LocationPage {
 
   loadMap() {
 
-    this.map = GoogleMaps.create('map', {
+    this.map = GoogleMaps.create('map-canvas', {
       camera: {
         target: {
           lat: 43.0741704,
