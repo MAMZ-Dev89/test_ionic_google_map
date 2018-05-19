@@ -97,11 +97,11 @@ export class LocationPage {
   onMapReady() {
     console.log('map is ready!');
     this.mapReady = true;
-    if (this.selectedOption.value == 'current') {
-      this.currentLocation();
-    } else {
-      this.gotoSpecificLocation(this.selectedOption.latLng);
-    }
+    // if (this.selectedOption.value == 'current') {
+    //   this.currentLocation();
+    // } else {
+    //   this.gotoSpecificLocation(this.selectedOption.latLng);
+    // }
 
   }
 
