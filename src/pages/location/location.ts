@@ -22,7 +22,7 @@ export class LocationPage {
     { key: 'Current Location', value: 'current', latlng: '' },
     { key: 'Amman', value: 'amm', latlng: { lat: 31.8354533, lng: 35.6674418 } },
     { key: 'Irbid', value: 'irb', latlng: new LatLng(32.5525113,35.81239) },
-    { key: 'Zarqa', value: 'zar', latlng: (new LatLng(32.0522945,35.9935951)) },
+    { key: 'Zarqa', value: 'zar', latlng: new LatLng(32.0522945,35.9935951) },
     { key: 'As-Salt', value: 'sal', latlng: new LatLng(32.0321557,35.655972) }
   ];
   selectedOption: any = this.locations[0];
@@ -83,8 +83,8 @@ export class LocationPage {
     this.map = GoogleMaps.create('map-canvas', {
       camera: {
         target: {
-          lat: 31.2603797,
-          lng: 34.8783629
+          lat: 34.8783629,
+          lng: 31.2603797
         },
         zoom: 10,
         tilt: 10
