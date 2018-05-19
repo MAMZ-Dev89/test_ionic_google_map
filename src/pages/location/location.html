@@ -4,11 +4,13 @@
   </ion-toolbar>
 </ion-header>
 <ion-content scroll="false">
-  <div id="map-canvas">
+  <div *ngIf="showMap" id="map-canvas">
   </div>
-  <div padding>
-      <ion-label>Tell us what is your location ?</ion-label>
-      <button ion-button block (tap)="currentLocation()" class="login">Use current location</button>
-      <button ion-button block (click)="customLocation()" class="signup">Use specific location</button>
+  <div *ngIf="!showMap" padding>
+    <ion-label>Tell us what is your location ?</ion-label>
+    <ion-select [(ngModel)]="selectedOption" interface="popover" class="select-location">
+      <ion-option *ngFor="let loc of locations" [value]="loc"> {{ loc.key }} </ion-option>
+    </ion-select>
+    <button ion-button block (tap)="loadMap()" >Submit</button>
   </div>
 </ion-content>
