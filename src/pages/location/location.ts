@@ -20,10 +20,10 @@ export class LocationPage {
   showMap: boolean = false;
   locations: Array<any> = [
     { key: 'Current Location', value: 'current', latlng: '' },
-    { key: 'Amman', value: 'amm', latlng: new LatLng(35.6674418,31.8354533) },
-    { key: 'Irbid', value: 'irb', latlng: new LatLng(35.81239,32.5525113) },
-    { key: 'Zarqa', value: 'zar', latlng: new LatLng(35.9935951,32.0522945) },
-    { key: 'As-Salt', value: 'sal', latlng: new LatLng(35.655972,32.0321557) }
+    { key: 'Amman', value: 'amm', latlng: new LatLng(31.8354533,35.6674418) },
+    { key: 'Irbid', value: 'irb', latlng: new LatLng(32.5525113,35.81239) },
+    { key: 'Zarqa', value: 'zar', latlng: new LatLng(32.0522945,35.9935951) },
+    { key: 'As-Salt', value: 'sal', latlng: new LatLng(32.0321557,35.655972) }
   ];
   selectedOption: any = this.locations[0];
 
@@ -68,8 +68,8 @@ export class LocationPage {
 
     return this.map.animateCamera({
       target: latlng,
-      zoom: 17,
-      tilt: 30
+      zoom: 11,
+      tilt: 10
     }).then(() => {
       console.log(" ======= We found your location ......");
     });
